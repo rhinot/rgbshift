@@ -30,10 +30,10 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 
 ##### IMPORTS #####
 # Import 1st party
-import sys
-import termios
+#import sys
+#import termios
 import time
-import tty
+#import tty
 from thread import start_new_thread
 
 # Import 3rd party
@@ -155,9 +155,10 @@ while abort == False:
 # Once aborted
 print ("Aborting...")
 
-setLights(RED_PIN, 0)
-setLights(GREEN_PIN, 0)
-setLights(BLUE_PIN, 0)
+
+setLED(RED_PIN, 0)
+setLED(GREEN_PIN, 0)
+setLED(BLUE_PIN, 0)
 
 time.sleep(0.5)
 
