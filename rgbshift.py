@@ -59,7 +59,7 @@ GREEN_BRIGHT_SCALE = .4
 BLUE_BRIGHT_SCALE = .2
 
 # Time delay for updates (seconds)
-DELAY = 600
+DELAY = 10
 
 # Other globals
 abort = False
