@@ -38,7 +38,6 @@ from datetime import datetime
 # Import 3rd party
 import requests
 from astral import Astral
-#import params
 
 
 
@@ -109,13 +108,21 @@ class transition_scheme_t:
 
 
 
+
 ##### FUNCTIONS #####
+###################
 # Conversion to radians
 def RAD (num) :
 	return (num*(math.pi/180))
 
+
+
+###################
+# Clamping function - value is now lower than low and no higher than high, otherwise, no change
 def CLAMP (n,low,high) :
 	return max(low, min(n,high))
+
+
 
 ###################
 # Get current latitude and longitude, returned in tuple - [0] = lat; [1] = lon
@@ -148,9 +155,8 @@ def interpolate_color_settings (transition, elevation, result) :
 	#	result.gamma[x] = (1.0-alpha) * night.gamma[x] + alpha * day.gamma[x]
 
 
-
-
-##### MAIN #####
+###################
+# Main function: Get the current temperature & brightness, given time & location
 def get_current_color() :
 	# Get current angular elevation of the sun
 	loc = getlatlon (location())

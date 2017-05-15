@@ -1,0 +1,3 @@
+[submodule "kelvin_to_rgb.py"]
+	path = kelvin_to_rgb.py
+	url = https://github.com/rhinot/kelvin_to_rgb/blob/master/kelvin_to_rgb.py
