@@ -3,8 +3,31 @@
 """redshift_lite.py: A light version of redshift, written in Python"""
 # For more information on redshift, see https://github.com/jonls/redshift/
 
-__author__      = "Ryan Tabone"
+__author__      = "Ryan Tabone (hit.ryan.up [at] gmail.com)"
 __copyright__   = "Copyright MMXVII, Ryan Tabone"
+
+# -----------------------------------------------------
+# File        redshift_lite.py
+# Authors     Ryan Tabone
+# License     GPLv3
+# Web         https://github.com/rhinot/rgbshift
+# -----------------------------------------------------
+# 
+# Copyright (C) 2017 Ryan Tabone
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#  
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>
+
 
 ##### IMPORTS #####
 # Import 1st party
@@ -23,8 +46,8 @@ from astral import Astral
 
 ##### DEFAULT VARIABLES #####
 # Default values for temperature & brightness.
-DEFAULT_DAY_TEMP =  5500
-DEFAULT_NIGHT_TEMP = 3500
+DEFAULT_DAY_TEMP =  5500   # Sun @ Noon
+DEFAULT_NIGHT_TEMP = 2700  # Incandescent
 DEFAULT_BRIGHTNESS = 1.0
 DEFAULT_DAY_BRIGHTNESS = DEFAULT_BRIGHTNESS
 DEFAULT_NIGHT_BRIGHTNESS = 0.5
