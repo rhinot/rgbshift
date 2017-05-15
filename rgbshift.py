@@ -31,6 +31,7 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 ##### IMPORTS #####
 # Import 1st party
 import sys
+import termios
 import time
 import tty
 from thread import start_new_thread
@@ -123,10 +124,7 @@ def rgbshift():
 #/\/\ Functions in this section formed from https://github.com/dordnung/raspberrypi-ledstrip/blob/master/fading.py /\/\#
 # Function to get key press
 def getCh():
-	fd = sys.stdin.fileno()
-
-	tty.setraw(fd)
-	ch = sys.stdin.read(1)
+	ch = raw_input("c = Abort Program")
 		
 	return ch
 
@@ -145,7 +143,7 @@ def checkKey():
 
 start_new_thread(checkKey, ())
 
-print ("c = Abort Program")
+#print ("c = Abort Program")
 
 
 # Keep updating the LEDS, per the DELAY, until abort
