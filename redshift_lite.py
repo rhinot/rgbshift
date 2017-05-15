@@ -31,12 +31,12 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 
 ##### IMPORTS #####
 # Import 1st party
+from datetime import datetime
 import json
 import math
-from datetime import datetime
+import requests
 
 # Import 3rd party
-import requests
 from astral import Astral
 
 
@@ -49,19 +49,19 @@ DEFAULT_DAY_TEMP =  5500   # Sun @ Noon
 DEFAULT_NIGHT_TEMP = 2700  # Incandescent
 DEFAULT_BRIGHTNESS = 1.0
 DEFAULT_DAY_BRIGHTNESS = DEFAULT_BRIGHTNESS
-DEFAULT_NIGHT_BRIGHTNESS = 0.5
+DEFAULT_NIGHT_BRIGHTNESS = 0.3
 
 # The color temperature when no adjustment is applied.
-NEUTRAL_TEMP = 6500
+#NEUTRAL_TEMP = 6500
 
 # Solar variables
 # Model of atmospheric refraction near horizon (in degrees).
-SOLAR_ATM_REFRAC = 0.833
+#SOLAR_ATM_REFRAC = 0.833
 
-SOLAR_ASTRO_TWILIGHT_ELEV = -18.0
-SOLAR_NAUT_TWILIGHT_ELEV  = -12.0
+#SOLAR_ASTRO_TWILIGHT_ELEV = -18.0
+#SOLAR_NAUT_TWILIGHT_ELEV  = -12.0
 SOLAR_CIVIL_TWILIGHT_ELEV = -6.0
-SOLAR_DAYTIME_ELEV = (0.0 - SOLAR_ATM_REFRAC)
+#SOLAR_DAYTIME_ELEV = (0.0 - SOLAR_ATM_REFRAC)
 
 
 # Angular elevation of the sun at which the color temperature
@@ -130,9 +130,9 @@ def getlatlon(location):
 	j = json.loads(r.text)
 
 	location.lat = j['latitude']
-	print location.lat
+	#print location.lat
 	location.lon = j['longitude']
-	print location.lon
+	#print location.lon
 
 	return (location)
 
@@ -159,22 +159,22 @@ def get_current_color():
 	loc = getlatlon (location())
 	sol_elev = Astral.solar_elevation(Astral(),datetime.utcnow(),loc.lat,loc.lon)
 
-	print sol_elev
+	#print sol_elev
 
 	# Use elevation of sun to set color temperature
 	scheme = transition_scheme_t()
 	interp = color_setting_t()
-	print interp.temperature
-	print interp.brightness
+	#print interp.temperature
+	#print interp.brightness
 	interpolate_color_settings (scheme,sol_elev,interp)
 
 	
 
 	return (interp.temperature, interp.brightness)
 
-test_vars = get_current_color()
+#test_vars = get_current_color()
 
-print test_vars[0]
-print test_vars[1]
+#print test_vars[0]
+#print test_vars[1]
 
 

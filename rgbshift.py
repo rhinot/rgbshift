@@ -30,11 +30,13 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 
 ##### IMPORTS #####
 # Import 1st party
+import time
 
 # Import 3rd party
 import pigpio
 import redshift_lite
 from kelvin_to_rgb import convert_K_to_RGB
+
 
 
 ##### DEFAULT VARIABLES #####
@@ -52,9 +54,11 @@ RED_BRIGHT_SCALE = 1
 GREEN_BRIGHT_SCALE = .4
 BLUE_BRIGHT_SCALE = .2
 
+# Time delay for updates (seconds)
+DELAY = 600
 
 
-
+# Open up the connection to the Pi
 pi = pigpio.pi()
 
 
@@ -108,8 +112,11 @@ def rgbshift():
 	setLED(PIN().red,red)
 	setLED(PIN().green,green)
 	setLED(PIN().blue,blue)
-	
-rgbshift()
+
+# Keep updating the LEDS, per the DELAY
+while True:
+	rgbshift()
+	time.sleep(DELAY)
 
 
 
