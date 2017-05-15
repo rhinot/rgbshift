@@ -32,8 +32,9 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 # Import 1st party
 
 # Import 3rd party
-# import pigpio
+import pigpio
 import redshift_lite
+from kelvin_to_rgb import convert_K_to_RGB
 
 
 ##### DEFAULT VARIABLES #####
@@ -42,24 +43,39 @@ RED_PIN   = 17
 GREEN_PIN = 22
 BLUE_PIN  = 24
 
+# Brightness calibration values
+BRIGHT_DEFAULT = 255
+#r = 255.0
+#g = 0.0
+#b = 0.0
+RED_BRIGHT_SCALE = 1
+GREEN_BRIGHT_SCALE = .4
+BLUE_BRIGHT_SCALE = .2
 
-bright = 255
-r = 255.0
-g = 0.0
-b = 0.0
 
 
 
-
-#pi = pigpio.pi()
+pi = pigpio.pi()
 
 
 
 ##### CLASS DEFINITIONS #####
-# Set brightness of led at pin - forked from https://github.com/dordnung/raspberrypi-ledstrip/blob/master/fading.py
-def setLights(pin, brightness):
-	realBrightness = int(int(brightness) * (float(bright) / 255.0))
+# Class for referencing pins in a standard way
+class PIN:
+	def __init__(self):
+		self.red = RED_PIN
+		self.green = GREEN_PIN
+		self.blue = BLUE_PIN
+
+
+
+
+##### FUNCTIONS #####
+# Set brightness of led at pin - based on https://github.com/dordnung/raspberrypi-ledstrip/blob/master/fading.py
+def setLED(pin, brightness):
+	realBrightness = int(int(brightness) * (float(BRIGHT_DEFAULT) / 255.0))
 	pi.set_PWM_dutycycle(pin, realBrightness)
+
 
 
 # Get color temperature & brightness, given time of day and location
@@ -70,11 +86,30 @@ def getColor():
 	return(temperature,brightness)
 
 
-temperature,brightness=getColor()
-print temperature
-print brightness
+
+# Convert color temperture to RGB values
+def getRGBfromTemp(temperature):
+	red = convert_K_to_RGB(temperature)[0]
+	green = convert_K_to_RGB(temperature)[1]
+	blue = convert_K_to_RGB(temperature)[2]
+
+	return(red,green,blue)
 
 
+# Main function: Set RGB values, taking into account RGB calibration
+def rgbshift():
+	temperature,brightness=getColor()
+	red,green,blue = getRGBfromTemp(temperature)
+
+	red = red * RED_BRIGHT_SCALE
+	green = green * GREEN_BRIGHT_SCALE
+	blue = blue * BLUE_BRIGHT_SCALE
+
+	setLED(PIN().red,red)
+	setLED(PIN().green,green)
+	setLED(PIN().blue,blue)
+	
+rgbshift()
 
 
 

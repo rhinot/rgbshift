@@ -110,23 +110,21 @@ class transition_scheme_t:
 
 
 ##### FUNCTIONS #####
-###################
+
 # Conversion to radians
-def RAD (num) :
+def RAD(num):
 	return (num*(math.pi/180))
 
 
 
-###################
 # Clamping function - value is now lower than low and no higher than high, otherwise, no change
-def CLAMP (n,low,high) :
+def CLAMP(n,low,high):
 	return max(low, min(n,high))
 
 
 
-###################
 # Get current latitude and longitude, returned in tuple - [0] = lat; [1] = lon
-def getlatlon (location) :
+def getlatlon(location):
 	send_url = 'http://freegeoip.net/json'
 	r = requests.get(send_url)
 	j = json.loads(r.text)
@@ -140,9 +138,8 @@ def getlatlon (location) :
 
 
 
-###################
 # Determine what the color settings should be during transition
-def interpolate_color_settings (transition, elevation, result) :
+def interpolate_color_settings(transition, elevation, result):
 	day = transition.day
 	night = transition.night
 
@@ -155,9 +152,9 @@ def interpolate_color_settings (transition, elevation, result) :
 	#	result.gamma[x] = (1.0-alpha) * night.gamma[x] + alpha * day.gamma[x]
 
 
-###################
+
 # Main function: Get the current temperature & brightness, given time & location
-def get_current_color() :
+def get_current_color():
 	# Get current angular elevation of the sun
 	loc = getlatlon (location())
 	sol_elev = Astral.solar_elevation(Astral(),datetime.utcnow(),loc.lat,loc.lon)
