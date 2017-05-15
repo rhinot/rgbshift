@@ -105,9 +105,9 @@ def rgbshift():
 	temperature,brightness=getColor()
 	red,green,blue = getRGBfromTemp(temperature)
 
-	red = red * RED_BRIGHT_SCALE
-	green = green * GREEN_BRIGHT_SCALE
-	blue = blue * BLUE_BRIGHT_SCALE
+	red = red * RED_BRIGHT_SCALE * brightness
+	green = green * GREEN_BRIGHT_SCALE * brightness
+	blue = blue * BLUE_BRIGHT_SCALE * brightness
 
 	setLED(PIN().red,red)
 	setLED(PIN().green,green)
