@@ -30,7 +30,10 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 
 ##### IMPORTS #####
 # Import 1st party
+import sys
 import time
+import tty
+from thread import start_new_thread
 
 # Import 3rd party
 import pigpio
@@ -56,6 +59,9 @@ BLUE_BRIGHT_SCALE = .2
 
 # Time delay for updates (seconds)
 DELAY = 600
+
+# Other globals
+abort = False
 
 
 # Open up the connection to the Pi
@@ -100,7 +106,7 @@ def getRGBfromTemp(temperature):
 	return(red,green,blue)
 
 
-# Main function: Set RGB values, taking into account RGB calibration
+# Set RGB values, taking into account RGB calibration
 def rgbshift():
 	temperature,brightness=getColor()
 	red,green,blue = getRGBfromTemp(temperature)
@@ -113,10 +119,51 @@ def rgbshift():
 	setLED(PIN().green,green)
 	setLED(PIN().blue,blue)
 
-# Keep updating the LEDS, per the DELAY
-while True:
+
+#/\/\ Functions in this section formed from https://github.com/dordnung/raspberrypi-ledstrip/blob/master/fading.py /\/\#
+# Function to get key press
+def getCh():
+	fd = sys.stdin.fileno()
+
+	tty.setraw(fd)
+	ch = sys.stdin.read(1)
+		
+	return ch
+
+
+# Function to check for any defined inputs
+def checkKey():
+	global abort
+	
+	while True:
+		c = getCh()
+
+		if c == 'c' and not abort:
+				abort = True
+				break
+
+
+start_new_thread(checkKey, ())
+
+print ("c = Abort Program")
+
+
+# Keep updating the LEDS, per the DELAY, until abort
+while abort == False:
 	rgbshift()
 	time.sleep(DELAY)
+
+
+# Once aborted
+print ("Aborting...")
+
+setLights(RED_PIN, 0)
+setLights(GREEN_PIN, 0)
+setLights(BLUE_PIN, 0)
+
+time.sleep(0.5)
+
+pi.stop()
 
 
 

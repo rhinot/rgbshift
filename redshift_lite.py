@@ -165,16 +165,16 @@ def get_current_color():
 	scheme = transition_scheme_t()
 	interp = color_setting_t()
 	#print interp.temperature
-	print interp.brightness
+	#print interp.brightness
 	interpolate_color_settings (scheme,sol_elev,interp)
 
 	
 
 	return (interp.temperature, interp.brightness)
 
-test_vars = get_current_color()
+#test_vars = get_current_color()
 
 #print test_vars[0]
-print test_vars[1]
+#print test_vars[1]
 
 
