@@ -100,6 +100,7 @@ class transition_scheme_t:
 		self.low = TRANSITION_LOW
 		self.day = color_setting_t()
 		self.day.temperature = DEFAULT_DAY_TEMP
+		self.day.brightness = DEFAULT_DAY_BRIGHTNESS
 		self.night = color_setting_t()
 		self.night.temperature = DEFAULT_NIGHT_TEMP
 		self.night.brightness = DEFAULT_NIGHT_BRIGHTNESS
