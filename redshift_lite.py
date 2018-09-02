@@ -32,13 +32,13 @@ __copyright__   = "Copyright MMXVII, Ryan Tabone"
 ##### IMPORTS #####
 # Import 1st party
 from datetime import datetime
-import json
+#import json
 import math
-import requests
+#import requests
 
 # Import 3rd party
-from astral import Astral
-
+from astral import Astral	# Map lat/long to sun position
+import ipapi			# Get lat/lon
 
 
 
@@ -124,16 +124,23 @@ def CLAMP(n,low,high):
 
 
 
-# Get current latitude and longitude, returned in tuple - [0] = lat; [1] = lon
+# Get current latitude and longitude
 def getlatlon(location):
-	send_url = 'http://freegeoip.net/json'
-	r = requests.get(send_url)
-	j = json.loads(r.text)
+	#Old service; returned in tuple - [0] = lat; [1] = lon
+	#send_url = 'http://freegeoip.net/json'
+	#r = requests.get(send_url)
+	#j = json.loads(r.text)
 
-	location.lat = j['latitude']
+	#location.lat = j['latitude']
 	#print location.lat
-	location.lon = j['longitude']
+	#location.lon = j['longitude']
 	#print location.lon
+	
+	lon = ipapi.location(field='longitude')
+	location.lon = float(lon)		# Convert from unicode to a useable float
+	
+	lat = ipapi.location(field='latitude')
+	location.lat = float(lat)
 
 	return (location)
 
